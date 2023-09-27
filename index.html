@@ -91,10 +91,10 @@
             <table border="1">
                 <thead>
                     <tr>
-                        <th>_id</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Delete</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,7 +110,7 @@
 </html>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
-   
+    
 <script>
 
     document.querySelector("form").addEventListener("submit", myData);
@@ -147,7 +147,18 @@
                 axios.delete(`https://crudcrud.com/api/45537175e6224391b2679250d904f61c/appintmentData/${id.innerText}`)
 
             })
-            row.append(id, name, email, D);
+            let E = document.createElement("td");
+            E.innerText = "Edit"
+            E.style.backgroundColor = 'green'
+            E.style.color = 'white'
+            E.style.cursor = 'pointer'
+            E.addEventListener("click", function () {
+                axios.put(`https://crudcrud.com/api/45537175e6224391b2679250d904f61c/appintmentData${id.innerText}`)
+                axios.delete(`https://crudcrud.com/api/45537175e6224391b2679250d904f61c/appintmentData/${id.innerText}`)
+                document.querySelector("#name").value = arr[i].name
+                document.querySelector("#email").value = arr[i].email
+            })
+            row.append(name, email, D, E);
             document.querySelector("tbody").append(row);
         }
     }
