@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>appointement</title>
+</head>
+<body>
+
+    <div class="form">
+        <h3>Book appointment</h2>
+            <form action="">
+                <label>Name: </label>
+                <input id="name"  type="text" name="name" required/>
+                <label>Email:</label>
+                <input id="email" type="text" name="emailid" required/>
+                <label>Mobile No.</label>
+                <input id="mobile " type="tel" name="mobile" required/>
+                <button type="submit">submit</button>
+            </form>
+            <div id="output">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- append your output here -->
+                    </tbody>
+                </table>
+        
+            </div>
+
+    
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
+        <script>
+
+            document.querySelector("form").addEventListener("submit", myData);
+            let Data = [];
+            function myData() {
+                event.preventDefault();
+                let name = document.querySelector("#name").value;
+                let email = document.querySelector("#email").value;
+                let obj = {
+                    Name: name,
+                    Email: email
+                }
+
+                axios.post("https://crudcrud.com/api/45537175e6224391b2679250d904f61c/appintmentData",obj)
+                .then(res=>Display(res.Data))
+                .catch(err=>console.log(err))
+
+
+
+                Data.push(obj)
+                //localStorage.setItem("User", JSON.stringify(Data));
+                document.querySelector("#name").value = ""
+                document.querySelector("#email").value = ""
+                DisplayTable(Data);
+            }
+        
+            function DisplayTable(user) {
+                document.querySelector("tbody").innerHTML = " ";
+                for (let i = 0; i < user.length; i++) {
+                    let tr = document.createElement("tr");
+                    let td1 = document.createElement("td");
+                    td1.innerText = i + 1;
+                    let td2 = document.createElement("td");
+                    td2.innerText = user[i].Name;
+                    let td3 = document.createElement("td");
+                    td3.innerText = user[i].Email
+        
+                    tr.append(td1, td2, td3);
+                    document.querySelector("tbody").append(tr);
+                }
+            }
+        
+            console.log(localStorage.getItem("User"))
+        
+        </script>
+
+      
+            
+        
+    
+</body>
+</html>
