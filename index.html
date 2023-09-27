@@ -14,8 +14,7 @@
                 <input id="name"  type="text" name="name" required/>
                 <label>Email:</label>
                 <input id="email" type="text" name="emailid" required/>
-                <label>Mobile No.</label>
-                <input id="mobile " type="tel" name="mobile" required/>
+               
                 <button type="submit">submit</button>
             </form>
             <div id="output">
@@ -41,7 +40,6 @@
         <script>
 
             document.querySelector("form").addEventListener("submit", myData);
-            let Data = [];
             function myData() {
                 event.preventDefault();
                 let name = document.querySelector("#name").value;
@@ -57,30 +55,32 @@
 
 
 
-                Data.push(obj)
+                //Data.push(obj)
                 //localStorage.setItem("User", JSON.stringify(Data));
-                document.querySelector("#name").value = ""
-                document.querySelector("#email").value = ""
-                DisplayTable(Data);
+                //document.querySelector("#name").value = ""
+                //document.querySelector("#email").value = ""
+                //DisplayTable(Data);
             }
+            function Display(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            let row = document.createElement("tr");
+            let name = document.createElement("td");
+            name.innerText = arr[i].name;
+            let email = document.createElement("td");
+            email.innerText = arr[i].email;
+            row.append(name, email)
+            document.querySelector("tbody").append(row);
+        }
+    }
+    
+    axios.get("https://crudcrud.com/api/45537175e6224391b2679250d904f61c/appintmentData")
+            .then(res=>{Display(res.Data)})
+            .then(err=>console.log(err))
+
+
         
-            function DisplayTable(user) {
-                document.querySelector("tbody").innerHTML = " ";
-                for (let i = 0; i < user.length; i++) {
-                    let tr = document.createElement("tr");
-                    let td1 = document.createElement("td");
-                    td1.innerText = i + 1;
-                    let td2 = document.createElement("td");
-                    td2.innerText = user[i].Name;
-                    let td3 = document.createElement("td");
-                    td3.innerText = user[i].Email
-        
-                    tr.append(td1, td2, td3);
-                    document.querySelector("tbody").append(tr);
-                }
-            }
-        
-            console.log(localStorage.getItem("User"))
+
+           
         
         </script>
 
